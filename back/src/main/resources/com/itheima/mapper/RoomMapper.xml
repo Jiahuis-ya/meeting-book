@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.RoomMapper">
+    <!--动态sql-->
+<!--    id是方法的名字list，是mapper文件的list-->
+    <!--       where里面的 categoryId、state、userId是mapper/ArticleMapper.class的list的形参
+  -->
+    <select id="list" resultType="com.itheima.pojo.Room">
+        select * from room
+         <where>
+            <if test="roomname != null and roomname != ''">
+                 and roomname like concat('%', #{roomname}, '%')
+            </if>
+
+            <if test="username != null and username != ''">
+                and username like concat('%', #{username}, '%')
+            </if>
+
+        </where>
+    </select>
+</mapper>

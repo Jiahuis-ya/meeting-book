@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.UserMapper">
+    <!--动态sql-->
+<!--    id是方法的名字list，是mapper文件的list-->
+    <select id="list" resultType="com.itheima.pojo.User">
+        select * from user
+#            where里面的 categoryId、state、userId是mapper/ArticleMapper.class的list的形参
+        <where>
+            <if test="userId != null and userId != ''">
+                and username like concat('%', #{userId}, '%')
+            </if>
+
+            <if test="phone != null and phone != ''">
+                and phone like concat('%', #{phone}, '%')
+            </if>
+
+            <if test="username != null and username != ''">
+                and username like concat('%', #{username}, '%')
+            </if>
+
+        </where>
+    </select>
+</mapper>

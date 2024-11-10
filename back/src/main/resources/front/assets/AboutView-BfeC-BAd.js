@@ -1,0 +1,1 @@
+import{c as t,a,o}from"./index-DQVb8vMl.js";const s={class:"about"},u={__name:"AboutView",setup(n){return(r,e)=>(o(),t("div",s,e[0]||(e[0]=[a("h1",null,"This is an about page",-1)])))}};export{u as default};

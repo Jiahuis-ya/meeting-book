@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.RoomBookMapper">
+    <select id="listApprove" resultType="com.itheima.pojo.RoomBookDetailDTO">
+        select b.*, r.roomname as roomname, r.capacity as capacity, r.location as location, r.username as username, r.userid as userid, r.phone as userphone, u.username as booker, u.phone as bookphone
+        from book b
+        left join room r on b.roomid = r.id
+        left join user u on b.bookerid = u.id
+        <where>
+            <if test="roomname != null and roomname != ''">
+                and r.roomname like concat('%', #{roomname}, '%')
+            </if>
+            <if test="booker != null and booker != ''">
+                and u.username like concat('%', #{booker}, '%')
+            </if>
+            <if test="bookphone != null and bookphone != ''">
+                and u.phone like concat('%', #{bookphone}, '%')
+            </if>
+            <if test="bookerid != null and bookerid != ''">
+                and b.bookerid like concat('%', #{bookerid}, '%')
+            </if>
+
+            and bookstate="已预约"
+            and state = "待审批"
+        </where>
+    </select>
+
+    <select id="listRecord" resultType="com.itheima.pojo.RoomBookDetailDTO">
+         select b.*, r.roomname as roomname, r.capacity as capacity, r.location as location, r.username as username, r.userid as userid, r.phone as userphone, u.username as booker, u.phone as bookphone
+            from book b
+            left join room r on b.roomid = r.id
+            left join user u on b.bookerid = u.id
+        <where>
+            <if test="roomname != null and roomname != ''">
+                and r.roomname like concat('%', #{roomname}, '%')
+            </if>
+            <if test="booker != null and booker != ''">
+                and u.username like concat('%', #{booker}, '%')
+            </if>
+            <if test="bookphone != null and bookphone != ''">
+                and u.phone like concat('%', #{bookphone}, '%')
+            </if>
+            <if test="bookerid != null and bookerid != ''">
+                and b.bookerid like concat('%', #{bookerid}, '%')
+            </if>
+
+            and state != "待审批"
+#             and (state = '已批准' or state = '不批准')
+
+        </where>
+    </select>
+
+</mapper>
